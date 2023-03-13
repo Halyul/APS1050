@@ -4,7 +4,7 @@
     - deleted `src/js/truffle-contract.js`, `src/js/web3.min.js`
 2. updated from using local bootstrap resources to using npm bootstrap resources 
     - updated `index.html`, `bs-config.json`
-    - deleted `src/js/bootstrap.min.js`, `src/css/bootstrap.min.css`, `src/css/bootstrap.min.cssbootstrap.min.css.map`
+    - deleted `src/js/bootstrap.min.js`, `src/css/bootstrap.min.css`, `src/css/bootstrap.min.css.map`
 3. added ability to show the owner of the pet (possibly none or 1)
     - updated `src/js/app.js` -> modified `markAdopted()`, `handleAdopt()`, `initContract()`
     - updated `contracts/Pets.sol` for new data struct to support new functions -> addded `create()`, `idExists()`, `idFind()`; modified `adopt()`, `getPets()`
