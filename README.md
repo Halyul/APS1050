@@ -1,3 +1,5 @@
+## Setup
+RUN `npm i` FIRST!!
 ## Added
 1. update DApp from using `truffle contract` to using `@truffle/contract `
     - updated `index.html`, `bs-config.json`, 
