@@ -20,6 +20,7 @@ RUN `npm i` FIRST!!
     - The executive summary should explain the new features and which files were modified to implement them.
 2. Testing: it should include test files for these 5 features that run with truffle test. Include the testing in the mp4.
     - `truffle test`
+3. Run `modclean` before upload to Q
 
 ## The Deliverable
 1. The DApp (=full Truffle Project Directory DO NOT PUBLISH YOUR DAPP ON GITHUB)
