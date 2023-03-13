@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Pete's Pet Shop</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">Pete's Pet Shop</h1>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+
+      <div id="petsRow" class="row">
+        <!-- PETS LOAD HERE -->
+      </div>
+    </div>
+
+    <div id="petTemplate" style="display: none;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-pet">
+          <div class="panel-heading">
+            <h3 class="panel-title">Scrappy</h3>
+          </div>
+          <div class="panel-body">
+            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="images/golden-retriever.jpeg" data-holder-rendered="true">
+            <br/><br/>
+            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
+            <strong>Age</strong>: <span class="pet-age">3</span><br/>
+            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br /><br />
+            <div class="btn-group">
+              <button class="btn btn-default btn-adopt" type="button" id="adopt-button" data-id="0">Adopt</button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="adopt-button-dropdown"
+                aria-expanded="false" disabled>
+                Owner
+              </button>
+              <ul class="dropdown-menu">
+                <li><span id="pet-owner">0x123</span></li>
+              </ul>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-default btn-up-vote" type="button" id="up-vote-button" data-id="0">Up Vote</button>
+              <button type="button" class="btn btn-default" disabled id="vote-number">0</button>
+              <button class="btn btn-default btn-down-vote" type="button" id="down-vote-button" data-id="0" disabled>Down Vote</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="web3/dist/web3.min.js"></script>
+    <script src="@truffle/contract/browser-dist/truffle-contract.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
