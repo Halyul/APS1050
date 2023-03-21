@@ -81,8 +81,12 @@ contract Pets {
 
     function returnPet(uint petId) public returns (bool) {
         uint256 i = idFind(petId);
+
         if (pets[i].adopter == address(0x0)) {
             revert('Pet has not been adopted');
+        }
+        if (pets[i].adopter != msg.sender){
+            revert('This pet is not adopted by you!');
         }
         pets[i].adopter = address(0x0);
         return true;

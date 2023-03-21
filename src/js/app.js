@@ -110,7 +110,7 @@ App = {
           }
 	  // No one has adopted the pet
 	  else {
-            button.text('Adopted').attr('disabled', false)
+            button.text('Adopt').attr('disabled', false)
             el.find('#pet-owner').attr('disabled',true)
 	    returnPet.attr('disabled',true)
             dropdown.attr('disabled', true)
