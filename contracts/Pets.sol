@@ -78,4 +78,13 @@ contract Pets {
 
         return pets[i];
     }
+
+    function returnPet(uint petId) public returns (bool) {
+        uint256 i = idFind(petId);
+        if (pets[i].adopter == address(0x0)) {
+            revert('Pet has not been adopted');
+        }
+        pets[i].adopter = address(0x0);
+        return true;
+    }
 }
