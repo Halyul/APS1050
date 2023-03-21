@@ -9,10 +9,14 @@ RUN `npm i` FIRST!!
     - deleted `src/js/bootstrap.min.js`, `src/css/bootstrap.min.css`, `src/css/bootstrap.min.css.map`
 3. added ability to show the owner of the pet (possibly none or 1)
     - updated `src/js/app.js` -> modified `markAdopted()`, `handleAdopt()`, `initContract()`
-    - updated `contracts/Pets.sol` for new data struct to support new functions -> addded `create()`, `idExists()`, `idFind()`; modified `adopt()`, `getPets()`
+    - updated `contracts/Pets.sol` for new data struct to support new functions -> added `create()`, `idExists()`, `idFind()`; modified `adopt()`, `getPets()`
 4. added ability to up/down vote a pet
     - updated `src/js/app.js` -> added `markVotes()`, `handleUpVote()`, `handleDownVote()`; modified `init()`, `bindEvents()`
     - updated `contracts/Pets.sol` -> added `upVote()`, `downVote()`
+5. added ability to return a pet
+    - updated `contracts/Pets.sol` to support pet return -> added `returnPet()`
+    - updated `src/js/app.js` -> modified `init()`, `bindEvents()`, `markAdopted()` to support the behavior of "Return" button, added `handleReturnPet()` to return the pet for a fee
+    - updated `index.html` to support "Return" button
 
 ## Project Requirements
 1. **5** new functions in the `.sol contract` and **5** new functions in the `app.js`
