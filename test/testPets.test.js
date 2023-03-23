@@ -112,24 +112,52 @@ contract("Pets", (accounts) => {
         });
     });
 
+
+
+
+
+    // -------------------------------------------
+    describe("Return a pet", async () => {
+        before("Adopt a pet", async () => {
+            await pets.adopt(1, { from: accounts[0] });
+            expectedAdopter = accounts[0];
+        });
+        it("can fetch the owner", async () => {
+            const pet = await pets.pets(3);
+            assert.equal(pet.adopter, expectedAdopter, `The adopter should be ${expectedAdopter}`);
+        });
+        before("Return an adopted pet", async () => {
+	    await pets.returnPet(1, { from: accounts[0] });
+            expectedAdopter = 0x0;
+        });
+        it("can fetch the owner", async () => {
+            const pet = await pets.pets(3);
+            assert.equal(pet.adopter, expectedAdopter, `The adopter should be ${expectedAdopter}`);
+        });
+    });
+
     describe("Get all pets", async () => {
         it("can fetch the pet ids", async () => {
             const pet = await pets.getPets();
             assert.equal(pet[0].id, "8", "The first pet in the array should be id:8");
             assert.equal(pet[1].id, "9", "The second pet in the array should be id:9");
             assert.equal(pet[2].id, "0", "The third pet in the array should be id:0");
+            assert.equal(pet[3].id, "1", "The fourth pet in the array should be id:0");
+	    
         });
         it("can fetch the pet votes", async () => {
             const pet = await pets.getPets();
             assert.equal(pet[0].votes, "1", "The first pet in the array should be votes:1");
             assert.equal(pet[1].votes, "0", "The second pet in the array should be votes:0");
             assert.equal(pet[2].votes, "1", "The third pet in the array should be votes:1");
+            assert.equal(pet[3].votes, "0", "The third pet in the array should be votes:0");
         });
         it("can fetch the pet adopter", async () => {
             const pet = await pets.getPets();
             assert.equal(pet[0].adopter, accounts[0], `The first pet in the array should be adopter:${accounts[0]}`);
             assert.equal(pet[1].adopter, accounts[0], `The second pet in the array should be adopter:${accounts[0]}`);
             assert.equal(pet[2].adopter, "0x0000000000000000000000000000000000000000", `The third pet in the array should be adopter:0x0000000000000000000000000000000000000000`);
+            assert.equal(pet[3].adopter, "0x0000000000000000000000000000000000000000", `The third pet in the array should be adopter:0x0000000000000000000000000000000000000000`);
         });
     });
 
