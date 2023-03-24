@@ -2,13 +2,13 @@ App = {
   web3Provider: null,
   contracts: {},
 
-  init: async function() {
+  init: async function () {
     // Load pets.
-    $.getJSON('../pet.json', function(data) {
+    $.getJSON('../pet.json', function (data) {
       var petsRow = $('#petsRow');
       var petTemplate = $('#petTemplate');
 
-      for (i = 0; i < data.length; i ++) {
+      for (i = 0; i < data.length; i++) {
         petTemplate.find('.panel-title').text(data[i].name);
         petTemplate.find('img').attr('src', data[i].picture);
         petTemplate.find('.pet-breed').text(data[i].breed);
@@ -25,7 +25,7 @@ App = {
     return await App.initWeb3();
   },
 
-  initWeb3: async function() {
+  initWeb3: async function () {
     // Modern dapp browsers...
     if (window.ethereum) {
       App.web3Provider = window.ethereum;
@@ -67,14 +67,14 @@ App = {
     return App.bindEvents();
   },
 
-  bindEvents: function() {
+  bindEvents: function () {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
     $(document).on('click', '.btn-return-pet', App.handleReturnPet);
     $(document).on('click', '.btn-up-vote', App.handleUpVote);
     $(document).on('click', '.btn-down-vote', App.handleDownVote);
   },
 
-  markAdopted: function() {
+  markAdopted: function () {
     var petsInstance;
 
     web3.eth.getAccounts(function (error, accounts) {
@@ -93,28 +93,57 @@ App = {
           const el = $('.panel-pet').eq(pet.id);
           const button = el.find('#adopt-button');
           const dropdown = el.find('#adopt-button-dropdown')
+          const history_dropdown = el.find('#adopt-button-history')
           const returnPet = el.find('#return-pet-button')
-	  // console.log(pet.adopter)
-	  // You are the adopter
+          // console.log(pet.adopter)
+          // You are the adopter
           if (account === pet.adopter) {
             button.text('Success').attr('disabled', true)
             el.find('#pet-owner').text('Lovely You')
-	    returnPet.attr("disabled",false)
+            returnPet.attr("disabled", false)
             dropdown.attr('disabled', false)
           }
-	  // Other user is the adopter
-	  else if (pet.adopter !== "0x0000000000000000000000000000000000000000") {
+          // Other user is the adopter
+          else if (pet.adopter !== "0x0000000000000000000000000000000000000000") {
             button.text('Adopted').attr('disabled', true)
             el.find('#pet-owner').text(pet.adopter)
             dropdown.attr('disabled', false)
           }
-	  // No one has adopted the pet
-	  else {
+          // No one has adopted the pet
+          else {
             button.text('Adopt').attr('disabled', false)
-            el.find('#pet-owner').attr('disabled',true)
-	    returnPet.attr('disabled',true)
+            el.find('#pet-owner').attr('disabled', true)
+            returnPet.attr('disabled', true)
             dropdown.attr('disabled', true)
           }
+
+
+
+          // Display adoption history
+
+          if (pet.adopterHistory.length < 1 || pet.adopterHistory == undefined) {
+            // This pet is not yet adopted
+            el.find('#pet-history1').text('None')
+          }
+          else {
+            var idx = 1
+            for (const adHis of pet.adopterHistory) {
+                html_str = "<li><span id=\"pet-history" + String(idx) + "\">"+adHis+"</span></li>"
+                //console.log(html_str)
+
+                // If #pet-history+String(idx) exists, modify the <li> element
+                if(el.find('#pet-history'+String(idx)).length!=0){
+                  el.find('#pet-history'+String(idx)).text(adHis)
+                }
+                // Else, a new <li> element needs to append
+                else{
+                  el.find('#pet-history'+String(idx-1)).after(html_str);
+                }
+              idx = idx+1              
+            }
+          }
+
+
         }
       }).catch(function (err) {
         console.log(err.message);
@@ -122,11 +151,11 @@ App = {
     });
   },
 
-  handleAdopt: function(event) {
+  handleAdopt: function (event) {
     event.preventDefault();
 
     var petId = parseInt($(event.target).data('id'));
-    console.log(event.target);
+    //console.log(event.target);
 
     var petsInstance;
 
@@ -150,7 +179,7 @@ App = {
     });
   },
 
-  handleReturnPet: function(event) {
+  handleReturnPet: function (event) {
     event.preventDefault();
 
     var petId = parseInt($(event.target).data('id'));
@@ -167,15 +196,15 @@ App = {
 
       App.contracts.Pets.deployed().then(function (instance) {
         petsInstance = instance;
-	// console.log(account)
+        // console.log(account)
         // Execute return pet as a transaction by sending account
         return petsInstance.returnPet(petId, { from: account });
       })
         .then(function (result) {
           return App.markAdopted();
-      }).catch(function (err) {
-        console.log(err.message);
-      });
+        }).catch(function (err) {
+          console.log(err.message);
+        });
     });
   },
 
@@ -204,7 +233,7 @@ App = {
             upButton.attr('disabled', true)
             downButton.attr('disabled', true)
           }
-      }
+        }
       }).catch(function (err) {
         console.log(err.message);
       });
@@ -260,8 +289,8 @@ App = {
 
 };
 
-$(function() {
-  $(window).load(function() {
+$(function () {
+  $(window).load(function () {
     App.init();
   });
 });

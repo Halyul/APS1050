@@ -52,6 +52,8 @@
               <ul class="dropdown-menu">
                 <li><span id="pet-owner">0x123</span></li>
               </ul>
+
+
             </div>
             <div class="btn-group">
               <button class="btn btn-default btn-up-vote" type="button" id="up-vote-button" data-id="0">Up Vote</button>
@@ -60,6 +62,13 @@
             </div>
            <div class="btn-group">
               <button class="btn btn-default btn-return-pet" type="button" id="return-pet-button" data-id="0" disabled >Return</button>
+              <button type="button" class="btn btn-default dropdown-history" data-toggle="dropdown" aria-haspopup="true" id="adopt-button-history"
+                aria-expanded="false">
+                Adoption History
+              </button>
+              <ol class="dropdown-menu",id="pet-histories">
+                <li><span id="pet-history1">None</span></li>
+              </ol>
             </div>
           </div>
         </div>
