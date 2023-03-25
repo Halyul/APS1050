@@ -62,6 +62,9 @@ App = {
       // Use our contract to retrieve and mark the adopted pets
       App.markAdopted();
       App.markVotes();
+      App.markPets();//zzq
+      App.markCusts();//zzq
+      
     });
 
     return App.bindEvents();
@@ -149,7 +152,35 @@ App = {
         console.log(err.message);
       });
     });
+  },//--serveed customer and addopted pets statistic starts here--//
+  markPets: function() {
+    let petsInstance;
+    App.contracts.Pets.deployed().then(function (instance) {
+      petsInstance = instance;
+      return petsInstance.trackPet.call();
+    }).then(function(result){
+      document.getElementById("pet-number").innerHTML = result;
+      //document.getElementById("petnum").innerHTML = "testvalue"
+      console.log(result);
+    }).catch(function(err) {
+      console.log(err.message);
+    });
   },
+
+  markCusts: function() {
+    let petsInstance;
+    App.contracts.Pets.deployed().then(function (instance) {
+      petsInstance = instance;
+      return petsInstance.trackCust.call();
+    }).then(function(result){
+      document.getElementById("cust-number").innerHTML = result;
+      //document.getElementById("custnum").innerHTML = "testvalue"
+      console.log(result);
+    }).catch(function(err) {
+      console.log(err.message);
+    });
+  },
+  
 
   handleAdopt: function (event) {
     event.preventDefault();
@@ -173,7 +204,13 @@ App = {
         return petsInstance.adopt(petId, { from: account });
       }).then(function (result) {
         return App.markAdopted();
-      }).catch(function (err) {
+      })/*.then(function (result) {
+        console.log("addoption");
+        return App.markPets();// pet num update zzq
+      }).then(function (result) {
+        console.log("customer");
+        return App.markCusts();// cust num update zzq
+      })*/.catch(function (err) {
         console.log(err.message);
       });
     });
@@ -207,17 +244,14 @@ App = {
         });
     });
   },
-
-
+  
   markVotes: e => {
     let petsInstance;
     web3.eth.getAccounts(function (error, accounts) {
       if (error) {
         console.log(error);
       }
-
       var account = accounts[0];
-
       App.contracts.Pets.deployed().then(function (instance) {
         petsInstance = instance;
         return petsInstance.getPets.call();
