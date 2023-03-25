@@ -267,6 +267,12 @@ App = {
             downButton.attr('disabled', true)
           }
         }
+      }).then(function (result) {
+        console.log(result);
+        return App.markPets();
+      }).then(function (result) {
+        console.log(result);
+        return App.markCusts();
       }).catch(function (err) {
         console.log(err.message);
       });

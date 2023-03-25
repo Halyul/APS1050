@@ -17,6 +17,10 @@ RUN `npm i` FIRST!!
     - updated `contracts/Pets.sol` to support pet return -> added `returnPet()`
     - updated `src/js/app.js` -> modified `init()`, `bindEvents()`, `markAdopted()` to support the behavior of "Return" button, added `handleReturnPet()` to return the pet for a fee
     - updated `index.html` to support "Return" button
+6. added ability to show number of adopted pets and served customers
+    - updated `contracts/Pets.sol` to support pet return -> added `addCust()` to trac customers, trackPet() and trackCust() to get how many custumers have been served and how many pets adopted
+    - updated `src/js/app.js` -> add `markPets()`, `markCusts()`to support the behavior, modified `markVotes()` `handleAdopt()` to trigger the behaviour
+    - updated `index.html` to support information display
 
 ## Project Requirements
 1. **5** new functions in the `.sol contract` and **5** new functions in the `app.js`
