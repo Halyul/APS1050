@@ -116,7 +116,5 @@ contract Pets {
     function trackCust() public view returns (uint256){
         return Customer.length;
     }
-   function Puretest() public view returns (uint256){
-        return 1;
-    }
+   
 }
