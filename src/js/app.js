@@ -152,15 +152,16 @@ App = {
         console.log(err.message);
       });
     });
-  },//--serveed customer and addopted pets statistic starts here--//
+  },
+
+  //--serveed customer and addopted pets statistic starts here--//
   markPets: function() {
     let petsInstance;
     App.contracts.Pets.deployed().then(function (instance) {
       petsInstance = instance;
       return petsInstance.trackPet.call();
     }).then(function(result){
-      document.getElementById("pet-number").innerHTML = result;
-      //document.getElementById("petnum").innerHTML = "testvalue"
+      document.getElementById("petnum").innerHTML = result;
       console.log(result);
     }).catch(function(err) {
       console.log(err.message);
@@ -173,9 +174,8 @@ App = {
       petsInstance = instance;
       return petsInstance.trackCust.call();
     }).then(function(result){
-      document.getElementById("cust-number").innerHTML = result;
-      //document.getElementById("custnum").innerHTML = "testvalue"
       console.log(result);
+      document.getElementById("custnum").innerHTML = result;
     }).catch(function(err) {
       console.log(err.message);
     });
@@ -186,7 +186,6 @@ App = {
     event.preventDefault();
 
     var petId = parseInt($(event.target).data('id'));
-    //console.log(event.target);
 
     var petsInstance;
 
@@ -204,13 +203,13 @@ App = {
         return petsInstance.adopt(petId, { from: account });
       }).then(function (result) {
         return App.markAdopted();
-      })/*.then(function (result) {
-        console.log("addoption");
-        return App.markPets();// pet num update zzq
       }).then(function (result) {
-        console.log("customer");
-        return App.markCusts();// cust num update zzq
-      })*/.catch(function (err) {
+        console.log(result);
+        return App.markPets();
+      }).then(function (result) {
+        console.log(result);
+        return App.markCusts();
+      }).catch(function (err) {
         console.log(err.message);
       });
     });
