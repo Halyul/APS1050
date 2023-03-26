@@ -64,7 +64,7 @@ App = {
       App.markVotes();
       App.markPets();//zzq
       App.markCusts();//zzq
-      
+
     });
 
     return App.bindEvents();
@@ -98,7 +98,6 @@ App = {
           const dropdown = el.find('#adopt-button-dropdown')
           const history_dropdown = el.find('#adopt-button-history')
           const returnPet = el.find('#return-pet-button')
-          // console.log(pet.adopter)
           // You are the adopter
           if (account === pet.adopter) {
             button.text('Success').attr('disabled', true)
@@ -131,18 +130,17 @@ App = {
           else {
             var idx = 1
             for (const adHis of pet.adopterHistory) {
-                html_str = "<li><span id=\"pet-history" + String(idx) + "\">"+adHis+"</span></li>"
-                //console.log(html_str)
+              html_str = "<li><span id=\"pet-history" + String(idx) + "\">" + adHis + "</span></li>"
 
-                // If #pet-history+String(idx) exists, modify the <li> element
-                if(el.find('#pet-history'+String(idx)).length!=0){
-                  el.find('#pet-history'+String(idx)).text(adHis)
-                }
-                // Else, a new <li> element needs to append
-                else{
-                  el.find('#pet-history'+String(idx-1)).after(html_str);
-                }
-              idx = idx+1              
+              // If #pet-history+String(idx) exists, modify the <li> element
+              if (el.find('#pet-history' + String(idx)).length != 0) {
+                el.find('#pet-history' + String(idx)).text(adHis)
+              }
+              // Else, a new <li> element needs to append
+              else {
+                el.find('#pet-history' + String(idx - 1)).after(html_str);
+              }
+              idx = idx + 1
             }
           }
 
@@ -155,32 +153,30 @@ App = {
   },
 
   //--serveed customer and addopted pets statistic starts here--//
-  markPets: function() {
+  markPets: function () {
     let petsInstance;
     App.contracts.Pets.deployed().then(function (instance) {
       petsInstance = instance;
       return petsInstance.trackPet.call();
-    }).then(function(result){
+    }).then(function (result) {
       document.getElementById("petnum").innerHTML = result;
-      console.log(result);
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.log(err.message);
     });
   },
 
-  markCusts: function() {
+  markCusts: function () {
     let petsInstance;
     App.contracts.Pets.deployed().then(function (instance) {
       petsInstance = instance;
       return petsInstance.trackCust.call();
-    }).then(function(result){
-      console.log(result);
+    }).then(function (result) {
       document.getElementById("custnum").innerHTML = result;
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.log(err.message);
     });
   },
-  
+
 
   handleAdopt: function (event) {
     event.preventDefault();
@@ -204,10 +200,8 @@ App = {
       }).then(function (result) {
         return App.markAdopted();
       }).then(function (result) {
-        console.log(result);
         return App.markPets();
       }).then(function (result) {
-        console.log(result);
         return App.markCusts();
       }).catch(function (err) {
         console.log(err.message);
@@ -232,18 +226,19 @@ App = {
 
       App.contracts.Pets.deployed().then(function (instance) {
         petsInstance = instance;
-        // console.log(account)
         // Execute return pet as a transaction by sending account
         return petsInstance.returnPet(petId, { from: account });
       })
         .then(function (result) {
           return App.markAdopted();
+        }).then(function (result) {
+          return App.markPets();
         }).catch(function (err) {
           console.log(err.message);
         });
     });
   },
-  
+
   markVotes: e => {
     let petsInstance;
     web3.eth.getAccounts(function (error, accounts) {
@@ -268,10 +263,8 @@ App = {
           }
         }
       }).then(function (result) {
-        console.log(result);
         return App.markPets();
       }).then(function (result) {
-        console.log(result);
         return App.markCusts();
       }).catch(function (err) {
         console.log(err.message);
