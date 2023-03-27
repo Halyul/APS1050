@@ -8,6 +8,21 @@ contract("Pets", (accounts) => {
         pets = await Pets.deployed();
     });
 
+    describe("check totoal addopted pets", async () => {
+        it("can fetch the addopted pet list", async () => {
+            const petnum = await pets.trackPet();
+            assert.equal(petnum, 0, "Zero pets should have been addopted");
+        });
+    });
+
+    describe("checking customer repeat detection", async () => {
+        it("can fetch the served customer list", async () => {
+            const custnum = await pets.trackCust();
+            assert.equal(custnum, 0, "No customer served");
+        });
+
+    });
+
     describe("Up vote a pet with no adopter", async () => {
         before("up vote a pet using accounts[0]", async () => {
             await pets.upVote(8, { from: accounts[0] });
@@ -177,4 +192,38 @@ contract("Pets", (accounts) => {
     //         assert.equal(adopters[8], expectedAdopter, "The owner of the adopted pet should be in the collection.");
     //     });
     // });
+    describe("check totoal addopted pets", async () => {
+        it("can fetch the addopted pet list", async () => {
+            const petnum = await pets.trackPet();
+            assert.equal(petnum, 2, "Two pets should have been addopted");
+        });
+    });
+
+    describe("checking customer that have been served", async () => {
+        it("can fetch the cust list", async () => {
+            const custnum = await pets.trackCust();
+            assert.equal(custnum, 1, "One customer served");
+        });
+
+    });
+
+    describe("checking customer repeat detection", async () => {
+        it("can detect repeated customer", async () => {
+            const custnum = await pets.trackCust();
+            assert.equal(custnum, 1, "One customer served");
+        });
+
+    });
+
+    describe("manually adding new customer to the list", async () => {
+        before("add cust using account[1]", async () => {
+            await pets.addCust({ from: accounts[1] });
+            expectedAdopter = accounts[1];
+        });
+        it("can fetch the correct cust list", async () => {
+            const custnum = await pets.trackCust();
+            assert.equal(custnum, 2, "Two customer served");
+        });
+
+    });
 });

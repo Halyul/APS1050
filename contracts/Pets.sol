@@ -10,6 +10,7 @@ contract Pets {
         address[] adopterHistory;
     }
     Pet[] public pets;
+    address[] public Customer;
 
     function create(uint petId, address adopter) public returns (bool) {
         pets.push(Pet({
@@ -29,6 +30,7 @@ contract Pets {
         }
         pets[i].adopter = msg.sender;
         pets[i].adopterHistory.push(msg.sender);
+        addCust();//here
         return true;
     }
 
@@ -63,7 +65,7 @@ contract Pets {
 
         pets[i].votes += 1;
         pets[i].voters.push(msg.sender);
-
+        addCust();//here
         return pets[i];
     }
 
@@ -72,7 +74,7 @@ contract Pets {
         if (pets[i].votes == 0) {
             revert('The vote cannot be decreased');
         }
-
+        addCust();//here
         pets[i].votes -= 1;
         pets[i].voters.push(msg.sender);
 
@@ -91,4 +93,28 @@ contract Pets {
         pets[i].adopter = address(0x0);
         return true;
     }
+
+    function trackPet() public view returns (uint256){ // addopted pets
+        uint256 petsNum = 0;
+        for (uint256 i = 0; i < pets.length; i++) {
+            if (pets[i].adopter != address(0x0)) {
+                petsNum += 1;
+            }
+        }
+       return petsNum;
+    }
+
+    function addCust() public{ // served customers
+        for (uint256 i = 0; i < Customer.length; i++) {
+            if (Customer[i] == msg.sender) {
+                return;
+            }
+        }
+        Customer.push(msg.sender);   
+    }
+
+    function trackCust() public view returns (uint256){
+        return Customer.length;
+    }
+   
 }
