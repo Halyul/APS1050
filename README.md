@@ -21,6 +21,12 @@ RUN `npm i` FIRST!!
     - updated `contracts/Pets.sol` to support pet return -> added `addCust()` to trac customers, trackPet() and trackCust() to get how many custumers have been served and how many pets adopted
     - updated `src/js/app.js` -> add `markPets()`, `markCusts()`to support the behavior, modified `markVotes()` `handleAdopt()` to trigger the behaviour
     - updated `index.html` to support information display
+7. added ability to show adoption histories
+    - updated `contracts/Pets.sol`: added `adopterHistory` data and collect it in the `adopt()` function.
+    - updated `src/js/app.js`: modified `markAdopted()` function to track and display the adoption history
+    - updated `index.htm`l to support the "Adoption History" button.
+
+
 
 ## Project Requirements
 1. **5** new functions in the `.sol contract` and **5** new functions in the `app.js`
