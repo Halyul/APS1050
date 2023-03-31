@@ -50,9 +50,3 @@ RUN `npm i` FIRST!!
 3. A video (e.g. mp4) that shows your operation and testing of the DApp. The video can include the Metamask and Ganache setup, followed by testing run confirmation, followed by operation of the dApp
 4. A one-fifth page 1.5 spaced executive summary. The executive summary should explain the new features and which files were modified to implement them.
 
-## Ease of coding
-8. a way of keeping track of which owner has which pet(s) (possibly none or many)
-10. a way of keeping track of a user's adoption history
-12. a way of keeping track of how many custumers have been served and how many pets adopted
-13. a way of returning the pet, for a fee
-11. a way of a way of keeping track of a pet's adoption history 
